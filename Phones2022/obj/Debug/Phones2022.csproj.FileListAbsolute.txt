@@ -221,3 +221,4 @@ D:\DOCUMENTS\JKTV21\C\ASP.Net_Projects\Phones2022\Phones2022\obj\Debug\Phones202
 D:\DOCUMENTS\JKTV21\C\ASP.Net_Projects\Phones2022\Phones2022\obj\Debug\Phones2022.csproj.CopyComplete
 D:\DOCUMENTS\JKTV21\C\ASP.Net_Projects\Phones2022\Phones2022\obj\Debug\Phones2022.dll
 D:\DOCUMENTS\JKTV21\C\ASP.Net_Projects\Phones2022\Phones2022\obj\Debug\Phones2022.pdb
+D:\JKTV21\ASP.NetProjects\Phones2022\Phones2022\obj\Debug\Phones2022.csproj.AssemblyReference.cache

@@ -155,6 +155,9 @@ namespace Phones2022.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    // if creation succeed, than add user's role
+                    await UserManager.AddToRoleAsync(user.Id, "client");
+
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771

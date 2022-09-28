@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
+    <link type="text/css" rel="stylesheet" href="~/Content/PhonesStyle.css" />
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
@@ -22,7 +23,10 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Phones", "Index", "Phones")</li>
-                    <li>@Html.ActionLink("PhonesAction", "Index", "PhonesAction")</li>
+                    @if (Request.IsAuthenticated && User.IsInRole("admin"))
+                    {
+                        <li>@Html.ActionLink("PhonesAction", "Index", "PhonesAction")</li>
+                    }
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -38,6 +42,7 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    <script scr="~Scripts/jquery.unobtrusive-ajax.min.js" ></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>
