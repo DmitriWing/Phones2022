@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Phones2022.Models.Comment>
+
+@{
+    // comments anisochronous adding-deleting
+    AjaxOptions ajaxOptions = new AjaxOptions { UpdateTargetId = "comments-tool" };
+}
+@using (Ajax.BeginForm("Index", new { PhoneId = ViewBag.PhoneId }, ajaxOptions))
+    { 
+    <div id="comments-tool">
+        <div id="all-comments">
+            <hr />
+            <h3>Comments List</h3>
+            @foreach (var item in Model)//  comments list by good's Id
+            {
+                <div class="phones-comment">
+                    <div class="phones-comment-title">
+                        From: @Html.DisplayFor(modelItem => item.UserName)
+                    </div>
+                    <div class="phones-comment-date">
+                        Date Publish: @item.DatePublish.Value.ToString("dd/MM/yyyy")
+                        <br />
+                        @*Date Publish: @item.DatePublish*@
+                    </div>
+                    <div class="phones-comment-body">
+                        @Html.DisplayFor(modelItem => item.Comments)
+                    </div>
+                    @if (Request.IsAuthenticated && User.IsInRole("admin"))
+                    {
+                        //  if admin logged in
+                        @Html.ActionLink("Delete This Comment", "Delete", new
+                        {
+                            id = item.Id
+                        })
+                    }
+                </div>
+            }
+        </div>
+        <div id="addcomment" class="add-comment-box">
+            @if (Request.IsAuthenticated)
+            {
+                //  if user logged in - add comment form available
+                @Html.Action("Create", "Comments", new { PhoneId = ViewBag.PhoneId })
+            }
+            else
+            {
+                @Html.ActionLink("To add comments you must be Logged In", "Login",
+               "Account")
+            }
+        </div>
+    </div>
+}

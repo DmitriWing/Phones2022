@@ -39,7 +39,7 @@
             @if (Request.IsAuthenticated)
             {
                 //  if user logged in - add comment form available
-                @Html.Action("Create", "Comments", new { PhoneId = ViewBag.PhoneId })
+                @Html.Action("Create", "Comments", new {PhoneId = ViewBag.PhoneId})
             }
             else
             {

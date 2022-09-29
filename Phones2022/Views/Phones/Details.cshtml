@@ -36,7 +36,7 @@
     </dl>
 </div>
 
-@Html.Action("Index", "Comments", new {PhoneID = Model.Id})
+@Html.Action("Index", "Comments", new { PhoneID = Model.Id })     <!-- partial view comments.tolist() commentscontroller -->
 
 <p>
     @Html.ActionLink("Back to List", "Index")

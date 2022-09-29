@@ -68,40 +68,10 @@ namespace Phones2022.Controllers
             return PartialView("Index", comments.ToList());
         }
 
-        // GET: Comments/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Comment comment = db.Comments.Find(id);
-            if (comment == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.PhonesId = new SelectList(db.Phones, "Id", "Name", comment.PhonesId);
-            return View(comment);
-        }
 
-        // POST: Comments/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,PhonesId,UserName,Comments,DatePublish")] Comment comment)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(comment).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.PhonesId = new SelectList(db.Phones, "Id", "Name", comment.PhonesId);
-            return View(comment);
-        }
 
         // GET: Comments/Delete/5
+        [Authorize(Roles = "admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -117,14 +87,16 @@ namespace Phones2022.Controllers
         }
 
         // POST: Comments/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             Comment comment = db.Comments.Find(id);
+            ViewBag.PhoneId = comment.PhonesId;
             db.Comments.Remove(comment);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "Phones", new {id = ViewBag.PhoneId });
         }
 
         protected override void Dispose(bool disposing)

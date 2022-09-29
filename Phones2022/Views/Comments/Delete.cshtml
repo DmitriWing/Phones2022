@@ -1,56 +1,66 @@
 ﻿@model Phones2022.Models.Comment
+@using Microsoft.AspNet.Identity;
 
 @{
     ViewBag.Title = "Delete";
 }
 
 <h2>Delete</h2>
+@if (Model.UserName == User.Identity.GetUserName() || User.Identity.GetUserName() == "admin")
+{
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Comment</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.UserName)
-        </dt>
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <h4>Comment</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.UserName)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.UserName)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.UserName)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Comments)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Comments)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Comments)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Comments)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.DatePublish)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.DatePublish)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.DatePublish)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.DatePublish)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Phone.Name)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Phone.Name)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Phone.Name)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Phone.Name)
+            </dd>
 
-    </dl>
+        </dl>
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    }
-</div>
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+                @Html.ActionLink("Back to Phones", "Details", "Phones", new { id = Model.PhonesId }, null)
+            </div>
+        }
+    </div>
+}
+else
+{
+    <h2>You don't have permissions to delete comments!</h2>
+    @Html.ActionLink("Back to Phones", "Details", "Phones", new { id = Model.PhonesId }, null)
+}
