@@ -52,10 +52,10 @@ namespace Phones2022.Models
         [Display(Name = "User Name")]
         public string UserName { get; set; }
 
-        [Required]
+        /*[Required]
         [Display(Name = "Email")]
         [EmailAddress]
-        public string Email { get; set; }
+        public string Email { get; set; }*/
 
         [Required]
         [DataType(DataType.Password)]

@@ -18,13 +18,13 @@ namespace Phones2022.Controllers
 
         // GET: Phones
         public ActionResult Index(int? page)
-        {   
+        {
             // ---------- all items on page
             // var phones = db.Phones.Include(p => p.Company).OrderBy(p => p.Name);
             // return View(phones.ToList());
 
             // ---------- pagination. Some items per page
-
+            
             int pageSize = 3;   // items on the page
             int pageNumber = (page ?? 1);
             var phones = db.Phones.Include(p => p.Company).OrderBy(p => p.Name).ToList();   // items
@@ -45,9 +45,7 @@ namespace Phones2022.Controllers
             }
             return View(phone);
         }
-
         
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -55,6 +53,18 @@ namespace Phones2022.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        //------ search
+        [HttpPost]
+        public  ActionResult PhoneSearch (string PhoneName) { 
+            // phones list by search condition, price desc sorted
+            var allPhones = db.Phones.Include(a => a.Company).Where(b => b.Name.Contains(PhoneName)).OrderByDescending(t => t.Price).ToList();
+            if (allPhones.Count <= 0)
+            {
+                return HttpNotFound();
+            }
+            return PartialView(allPhones);  
         }
     }
 }

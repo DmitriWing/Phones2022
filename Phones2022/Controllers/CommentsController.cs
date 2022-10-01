@@ -25,7 +25,7 @@ namespace Phones2022.Controllers
         }
 
         // GET: Comments/Details/5
-        public ActionResult Details(int? id)
+        /*public ActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -37,7 +37,7 @@ namespace Phones2022.Controllers
                 return HttpNotFound();
             }
             return View(comment);
-        }
+        }*/
 
         // GET: Comments/Create
         [Authorize]
